@@ -1,0 +1,129 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+    c_AgNO3
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_tannic
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_tri
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_H2O
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_Agl
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_Ags
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    c_Ags2
+    {
+
+    solver          PBiCGStab;
+    preconditioner  DILU;
+    tolerance       1e-08;
+    relTol          0;
+    minIter	     1;
+    }
+
+    p
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0.05;
+    }
+
+    pFinal
+    {
+        $p;
+        relTol          0;
+    }
+
+    U
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-05;
+        relTol          0;
+    }
+
+    T 
+    {
+       solver            PBiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-7;
+        relTol           0;
+    }
+}
+
+PISO
+{
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 2;
+}
+
+
+// ************************************************************************* //

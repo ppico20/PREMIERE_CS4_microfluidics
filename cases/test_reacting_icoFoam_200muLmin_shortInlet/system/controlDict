@@ -1,0 +1,164 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     reacting_icoFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         10;
+
+deltaT          1e-5;
+
+writeControl    timeStep;
+
+writeInterval   1000;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  true;
+
+maxCo           0.5;
+
+maxAlphaCo      0.3;
+
+maxDeltaT       1;
+
+functions{
+
+     components1
+     {
+         type            components;
+         libs            (fieldFunctionObjects);
+         field           U;
+         executeControl  timeStep;
+         executeInterval 100;
+         writeFields     timeStep;
+         writeInterval   500;
+     }
+
+    volAverage
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        fields         
+        (
+            c_AgNO3
+            c_tri
+            c_tannic
+            c_H2O
+            c_Agl
+            c_Ags
+            c_Ags2
+            Ux
+            Uy
+            p
+        );
+
+        writeFields         no;
+        name                volumeAverage;
+        operation	    volAverage;
+        executeControl      timeStep;
+        executeInterval     100;
+        writeControl        timeStep;
+        writeInterval       100;
+    }
+
+    probes1
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type               probes;
+        name               probes1;
+        executeControl      timeStep;
+        executeInterval     100;
+        writeControl        timeStep;
+        writeInterval       100;
+        fields
+        (
+            c_AgNO3
+            c_tri
+            c_tannic
+            c_H2O
+            c_Agl
+            c_Ags
+            c_Ags2
+            rate_produc_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+            Ux
+            Uy
+            p
+         );
+
+        probeLocations
+        (
+            (0.00225 1.9995 0.00025)
+        );
+    }
+
+    probes2
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type               probes;
+        name               probes2;
+        executeControl      timeStep;
+        executeInterval     100;
+        writeControl        timeStep;
+        writeInterval       100;
+        fields
+        (
+            c_AgNO3
+            c_tri
+            c_tannic
+            c_H2O
+            c_Agl
+            c_Ags
+            c_Ags2
+            rate_produc_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+            Ux
+            Uy
+            p
+         );
+
+        probeLocations
+        (
+            (0.00225 0.0005 0.00025)
+        );
+    }
+
+}
+
+
+
+// ************************************************************************* //

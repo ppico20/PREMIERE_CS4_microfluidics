@@ -1,0 +1,14 @@
+set logscale y
+set ylabel "Final residuals"
+set xlabel "Time [s]"
+
+plot 'logs/UxFinalRes_0' title 'Ux' with lines,\
+     'logs/UyFinalRes_0' title 'Uy' with lines,\
+     'logs/pFinalRes_0' title 'p0' with lines,\
+     'logs/pFinalRes_1' title 'p1' with lines,\
+     'logs/pFinalRes_2' title 'p2' with lines,\
+     'logs/pFinalRes_3' title 'p3' with lines,\
+     'logs/pFinalRes_4' title 'p4' with lines,\
+     'logs/pFinalRes_5' title 'p5' with lines
+
+pause mouse

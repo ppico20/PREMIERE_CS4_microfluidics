@@ -1,0 +1,13 @@
+set logscale y
+set ylabel "Initial residual"
+set xlabel "Time [s]"
+
+plot 'logs/Ux_0' title 'Ux' with lines,\
+     'logs/Uy_0' title 'Uy' with lines,\
+     'logs/p_0' title 'p' with lines,\
+     'logs/massConc_AgNO3_0' title 'massConc_AgNO3' with lines,\
+     'logs/massConc_tannic_0' title 'massConc_tannic' with lines,\
+     'logs/massConc_tri_0' title 'massConc_tri' with lines,\
+     'logs/massConc_H2O_0' title 'massConc_H2O' with lines
+
+pause mouse
