@@ -19,10 +19,10 @@ populationBalanceModel univariate;
 
 univariateCoeffs
 {
-    aggregation off;
+    aggregation on;
     aggregationKernel
     {
-        aggregationKernel turbulentBrownian;
+        aggregationKernel Brownian;
     }
 
     breakup off;
@@ -58,10 +58,13 @@ univariateCoeffs
         Cg        Cg        [0 3 -1 0 0 0 0 ] 1.0;
     }
 
-    nucleation off;
+    nucleation on;
     nucleationModel
     {
-        nucleationModel  none;
+        nucleationModel      nucleation_reaction;
+        k1                   k1    [0 0 -1 0 0 0 0] 1.75e-05;
+        dcrit                dcrit [0 1 0 0 0 0 0] 1e-11;
+        mwAgs                mwAgs    [1 0 0 0 -1 0 0] 0.16987;
     }
 
     odeCoeffs

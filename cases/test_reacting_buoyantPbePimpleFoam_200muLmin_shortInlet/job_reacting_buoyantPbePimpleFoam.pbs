@@ -14,7 +14,7 @@ source ~/OpenFOAM/OpenFOAM-v2006/etc/bashrc
 
 cd $PBS_O_WORKDIR
 
-mpiexec reacting_icoFoam -parallel > log.icoFoam 2>&1
+mpiexec reacting_buoyantPbePimpleFoam -parallel > log.icoFoam 2>&1
 
 #reconstructPar -latestTime > log.reconstructPar 2>&1
 

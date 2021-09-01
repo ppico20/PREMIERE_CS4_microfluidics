@@ -53,6 +53,13 @@ maxAlphaCo      0.3;
 
 maxDeltaT       1;
 
+
+libs
+(
+"libcompressible.so"
+);
+
+
 functions{
 
      components1
@@ -79,6 +86,11 @@ functions{
             y_Agl
             y_Ags
             y_Ags2
+            moment.0.populationBalance
+            moment.1.populationBalance
+            moment.2.populationBalance
+            moment.3.populationBalance
+            moment.4.populationBalance
             Ux
             Uy
             p
@@ -111,6 +123,11 @@ functions{
             y_Agl
             y_Ags
             y_Ags2
+            moment.0.populationBalance
+            moment.1.populationBalance
+            moment.2.populationBalance
+            moment.3.populationBalance
+            moment.4.populationBalance
             rate_product_Agl_reduction
             rate_product_Ags_nuc
             rate_product_Ags2_g
@@ -136,14 +153,19 @@ functions{
         writeInterval       100;
         fields
         (
-            c_AgNO3
-            c_tri
-            c_tannic
-            c_H2O
-            c_Agl
-            c_Ags
-            c_Ags2
-            rate_produc_Agl_reduction
+            y_AgNO3
+            y_tri
+            y_tannic
+            y_H2O
+            y_Agl
+            y_Ags
+            y_Ags2
+            moment.0.populationBalance
+            moment.1.populationBalance
+            moment.2.populationBalance
+            moment.3.populationBalance
+            moment.4.populationBalance
+            rate_product_Agl_reduction
             rate_product_Ags_nuc
             rate_product_Ags2_g
             Ux
