@@ -1,0 +1,10 @@
+set size square
+set font 'Verdana,30'
+set grid
+set key at graph 0.99,0.95
+set ylabel "d32 [mu m]"
+set xlabel "Time [s]"
+
+plot "< join postProcessing/probes1/0/moment.2.populationBalance postProcessing/probes1/0/moment.3.populationBalance" using 1:(1e6*($3/$2))  with lines title "QMOM2"
+
+pause mouse

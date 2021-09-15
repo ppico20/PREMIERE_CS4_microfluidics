@@ -97,9 +97,12 @@ Foam::populationBalanceSubModels::nucleationModels::nucleation_reaction::nucleat
 
     scalar abscissaNucleation = dcrit_.value();
 
-    return (6.0221417930e+23/mwAgs_.value())*(mwAgs_.value()*k1_.value()*(rho[celli]*y_Agl[celli]/mwAgs_.value()))*pow(abscissaNucleation, momentOrder);
+    //return ((mwAgs_.value()*k1_.value()*(y_Agl[celli]/mwAgs_.value()))/((3.1415/6.0)*pow3(dcrit_.value())))*pow(abscissaNucleation, momentOrder);
 
-    //return Cn1_.value()*exp(-Cn2_.value()*pow(log(S),-2.0))*pow(abscissaNucleation, momentOrder);
+     //return (pow(1,-45))*pow(abscissaNucleation, momentOrder);
+
+    return (1.0/mwAgs_.value())*(mwAgs_.value()*k1_.value()*(rho[celli]*y_Agl[celli]/mwAgs_.value()))*pow(abscissaNucleation, momentOrder);
+
 }
 
 // ************************************************************************* //

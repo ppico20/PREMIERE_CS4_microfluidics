@@ -1,0 +1,9 @@
+set size square
+set font 'Verdana,30'
+set grid
+
+set ylabel "m0 (number of particles) [1/m3]"
+set xlabel "Time [s]"
+
+plot "postProcessing/probes1/0/moment.0.populationBalance" with lines    
+pause mouse
