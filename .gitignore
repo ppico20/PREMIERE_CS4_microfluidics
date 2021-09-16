@@ -104,3 +104,5 @@ constant/cellToRegion
 
 # Ignore linux directory created when a solver is compiled
 linux*
+
+.vscode/
