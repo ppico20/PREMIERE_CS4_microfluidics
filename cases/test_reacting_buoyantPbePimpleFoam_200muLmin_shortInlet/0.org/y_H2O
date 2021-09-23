@@ -10,13 +10,13 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      c_H2O;
+    object      y_H2O;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 1000;
+internalField   uniform 0;
 
 boundaryField
 {
@@ -29,7 +29,7 @@ boundaryField
     inlet2
     {
         type            fixedValue;
-        value           uniform 998.2091767;
+        value           uniform 998.2091767e-3;
     }
 
     walls

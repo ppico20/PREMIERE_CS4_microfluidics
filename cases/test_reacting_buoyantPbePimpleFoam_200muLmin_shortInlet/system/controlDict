@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         10;
+endTime         80;
 
 deltaT          1e-5;
 
-writeControl    timeStep;
+writeControl    runTime;
 
-writeInterval   1000;
+writeInterval   1e-3;
 
 purgeWrite      0;
 
@@ -67,10 +67,10 @@ functions{
          type            components;
          libs            (fieldFunctionObjects);
          field           U;
-         executeControl  timeStep;
-         executeInterval 100;
-         writeFields     timeStep;
-         writeInterval   500;
+        executeControl      runTime;
+        executeInterval     0.2;
+        writeControl        runTime;
+        writeInterval       0.2;
      }
 
     volAverage
@@ -90,7 +90,6 @@ functions{
             moment.1.populationBalance
             moment.2.populationBalance
             moment.3.populationBalance
-            moment.4.populationBalance
             Ux
             Uy
             p
@@ -99,10 +98,10 @@ functions{
         writeFields         no;
         name                volumeAverage;
         operation	    volAverage;
-        executeControl      timeStep;
-        executeInterval     100;
-        writeControl        timeStep;
-        writeInterval       100;
+        executeControl      runTime;
+        executeInterval     0.2;
+        writeControl        runTime;
+        writeInterval       0.2;
     }
 
     probes1
@@ -110,10 +109,10 @@ functions{
         functionObjectLibs ( "libsampling.so" );
         type               probes;
         name               probes1;
-        executeControl      timeStep;
-        executeInterval     100;
-        writeControl        timeStep;
-        writeInterval       100;
+        executeControl      runTime;
+        executeInterval     0.2;
+        writeControl        runTime;
+        writeInterval       0.2;
         fields
         (
             y_AgNO3
@@ -127,7 +126,6 @@ functions{
             moment.1.populationBalance
             moment.2.populationBalance
             moment.3.populationBalance
-            moment.4.populationBalance
             rate_product_Agl_reduction
             rate_product_Ags_nuc
             rate_product_Ags2_g
@@ -147,10 +145,10 @@ functions{
         functionObjectLibs ( "libsampling.so" );
         type               probes;
         name               probes2;
-        executeControl      timeStep;
-        executeInterval     100;
-        writeControl        timeStep;
-        writeInterval       100;
+        executeControl      runTime;
+        executeInterval     0.2;
+        writeControl        runTime;
+        writeInterval       0.2;
         fields
         (
             y_AgNO3
@@ -164,7 +162,6 @@ functions{
             moment.1.populationBalance
             moment.2.populationBalance
             moment.3.populationBalance
-            moment.4.populationBalance
             rate_product_Agl_reduction
             rate_product_Ags_nuc
             rate_product_Ags2_g

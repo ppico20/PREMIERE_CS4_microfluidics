@@ -62,9 +62,11 @@ univariateCoeffs
     nucleationModel
     {
         nucleationModel      nucleation_reaction;
-        k1                   k1    [0 0 -1 0 0 0 0] 1.75e-05;
-        dcrit                dcrit [0 1 0 0 0 0 0] 1e-11;
-        mwAgs                mwAgs    [1 0 0 0 -1 0 0] 0.16987;
+        k1                   k1     [0 0 -1 0 0 0 0] 1.75e-05;
+        Nav                  Nav    [0 0 0 0 -1 0 0] 6.0221409e+23;
+        dm                   dm     [0 1 0 0 0 0 0]  0.144e-9;
+        dcrit                dcrit  [0 1 0 0 0 0 0]  1e-10;
+        mwAgs                mwAgs  [1 0 0 0 -1 0 0] 0.16987;
     }
 
     odeCoeffs
