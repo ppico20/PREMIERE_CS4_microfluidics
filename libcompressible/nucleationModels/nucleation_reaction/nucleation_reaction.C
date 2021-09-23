@@ -53,8 +53,6 @@ namespace nucleationModels
 }
 }
 
-//using Foam::constant::physicoChemical::NA;
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 Foam::populationBalanceSubModels::nucleationModels::nucleation_reaction::nucleation_reaction
@@ -68,9 +66,11 @@ Foam::populationBalanceSubModels::nucleationModels::nucleation_reaction::nucleat
     continuousPhase_(dict.lookupOrDefault("continuousPhase", word::null)),
 
     k1_("k1", pow(dimTime,-1), dict),
+    Nav_("Nav", pow(dimMoles,-1.0), dict),
     dcrit_("dcrit", dimLength, dict),
+    dm_("dm", dimLength, dict),
     mwAgs_("mwAgs", dimMass*pow(dimMoles,-1.0), dict)
-    
+
 {}
 
 
@@ -90,7 +90,7 @@ Foam::populationBalanceSubModels::nucleationModels::nucleation_reaction::nucleat
     const label environment
 ) const
 {
-    
+
 
     const volScalarField& y_Agl = mesh_.lookupObject<volScalarField>("y_Agl");
     const volScalarField& rho = mesh_.lookupObject<volScalarField>("rho");
@@ -99,9 +99,7 @@ Foam::populationBalanceSubModels::nucleationModels::nucleation_reaction::nucleat
 
     //return ((mwAgs_.value()*k1_.value()*(y_Agl[celli]/mwAgs_.value()))/((3.1415/6.0)*pow3(dcrit_.value())))*pow(abscissaNucleation, momentOrder);
 
-     //return (pow(1,-45))*pow(abscissaNucleation, momentOrder);
-
-    return (1.0/mwAgs_.value())*(mwAgs_.value()*k1_.value()*(rho[celli]*y_Agl[celli]/mwAgs_.value()))*pow(abscissaNucleation, momentOrder);
+    return ((Nav_.value()*dm_.value())/(dcrit_.value()))*(k1_.value()*(rho[celli]*y_Agl[celli]/mwAgs_.value()))*pow(abscissaNucleation, momentOrder);
 
 }
 

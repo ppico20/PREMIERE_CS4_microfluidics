@@ -65,15 +65,22 @@ private:
 
     // Private data
 
-        //- Continuous phase name
+        // - Continuous phase name
         const word continuousPhase_;
 
-        //- Reaction constant
+        // - Reaction constant in 1/s
         dimensionedScalar k1_;
 
-        //- dcrit
+        // - Avogadro's number in atoms/moles
+        dimensionedScalar Nav_;
+
+        // - Critical nucleation radius in m
         dimensionedScalar dcrit_;
 
+        // - Diameter of an Ags atom in m/atom
+        dimensionedScalar dm_;
+
+       // - Molecular weight of Ag in kg/mol
         dimensionedScalar mwAgs_;
 
 
