@@ -75,8 +75,8 @@ private:
         //- Continuous phase name
         const word continuousPhase_;
 
-        //- [mol/m3]: Equilibrium concentration in the liquid-gas-hydrates interface.
-        dimensionedScalar c_eq_;
+    dimensionedScalar k2_;
+    dimensionedScalar mwAgl_;
 
 public:
 

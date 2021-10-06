@@ -62,8 +62,8 @@ Foam::populationBalanceSubModels::growthModels::growth_reaction
     growthModel(dict, mesh),
 
     continuousPhase_(dict.lookupOrDefault("continuousPhase", word::null)),
-    
-    c_eq_("c_eq", dimMoles*pow(dimLength,-3.0), dict)
+    k2_("k2", dimVolume*pow(dimMoles*dimTime,-1.0), dict),
+    mwAgl_("mwAgl", dimMass*pow(dimMoles,-1.0), dict)
 
 {}
 
@@ -87,9 +87,8 @@ Foam::populationBalanceSubModels::growthModels::growth_reaction::phaseSpaceConve
 {
     scalar gSource(0);
 
-    const volScalarField& cb = mesh_.lookupObject<volScalarField>("c");
-    
-    scalar S = cb[celli]/c_eq_.value();
+    const volScalarField& y_Agl = mesh_.lookupObject<volScalarField>("y_Agl");
+    const volScalarField& rho = mesh_.lookupObject<volScalarField>("rho");
 
     const PtrList<volScalarNode>& nodes = quadrature.nodes();
     label sizeIndex = nodes[0].sizeIndex();
@@ -136,7 +135,7 @@ Foam::populationBalanceSubModels::growthModels::growth_reaction::phaseSpaceConve
 
             scalar gSourcei =
                 n
-               *(Kg(d, lengthBased)*(S-1.0))
+               *(Kg(d, lengthBased)*(k2_.value()*(rho[celli]*y_Agl[celli]/mwAgl_.value())))
                *sizeOrder
                *pow(bAbscissa, sizeOrder - 1);
 
@@ -177,7 +176,7 @@ Foam::populationBalanceSubModels::growthModels::growth_reaction::phaseSpaceConve
 
             scalar gSourcei =
                 n
-               *(Kg(d, lengthBased)*(S-1.0))
+               *(Kg(d, lengthBased)*(k2_.value()*(rho[celli]*y_Agl[celli]/mwAgl_.value())))
                *sizeOrder
                *pow(bAbscissa, sizeOrder - 1);
 
@@ -294,14 +293,7 @@ Foam::populationBalanceSubModels::growthModels::growth_reaction::Kg
 ) const
 {
 
-    if(d < SMALL){
- 
-    return 0.0;
-
-    } else {
-
-     return (Cg_.value()/d);
-    }
+    return (d)*pow(3.0,-1.0);
 
     //return (Cg_.value()/max(d,dmin_.value()));
 }
