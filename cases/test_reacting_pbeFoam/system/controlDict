@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     reacting_pbeFoam;
+application     nonReacting_pbeFoam;
 
 startFrom       latestTime;
 
@@ -23,9 +23,9 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         20000;
+endTime         30000;
 
-deltaT          1e-3;
+deltaT          1e-10;
 
 writeControl    timeStep;
 
@@ -51,7 +51,7 @@ maxCo           0.5;
 
 maxAlphaCo      0.3;
 
-maxDeltaT       1;
+maxDeltaT       1e-8;
 
 
 libs
@@ -88,9 +88,9 @@ functions{
         name                volumeAverage;
         operation	    volAverage;
         executeControl      timeStep;
-        executeInterval     100;
+        executeInterval     10;
         writeControl        timeStep;
-        writeInterval       100;
+        writeInterval       10;
     }
 
     probes1
@@ -99,9 +99,9 @@ functions{
         type               probes;
         name               probes1;
         executeControl      timeStep;
-        executeInterval     100;
+        executeInterval     10;
         writeControl        timeStep;
-        writeInterval       100;
+        writeInterval       10;
         fields
         (
             y_AgNO3

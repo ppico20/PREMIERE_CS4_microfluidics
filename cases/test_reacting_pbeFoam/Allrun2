@@ -3,8 +3,8 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
 
-cp -rf 0.org 0
-runApplication nonReacting_pbeFoam
+#cp -rf 0.org 0
+runApplication reacting_pbeFoam
 
 
 #------------------------------------------------------------------------------
