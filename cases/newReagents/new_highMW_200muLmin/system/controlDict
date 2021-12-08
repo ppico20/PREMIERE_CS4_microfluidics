@@ -1,0 +1,250 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     newReacting_buoyantPimpleFoam;
+
+startFrom       latestTime;
+
+startTime       0.0;
+
+stopAt          endTime;
+
+endTime         150;
+
+deltaT          1e-5;
+
+writeControl    adjustableRunTime;
+
+writeInterval   2;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  true;
+
+maxCo           0.5;
+
+maxAlphaCo      0.3;
+
+maxDeltaT       1;
+
+
+libs
+(
+"libcompressible.so"
+);
+
+
+functions{
+
+     components1
+     {
+         type                components;
+         libs                (fieldFunctionObjects);
+         field               U;
+         executeControl      runTime;
+         executeInterval     0.5;
+         writeControl        runTime;
+         writeInterval       0.5;
+     }
+
+    volAverage
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        fields         
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+        );
+
+        writeFields         no;
+        name                volumeAverage;
+        operation	    volAverage;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+    }
+
+    probe_0m
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type                probes;
+        name                probe_0m;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+        fields
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+            rate_product_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+         );
+
+        probeLocations
+        (
+            (0.00225 0.9995 0.00025)
+        );
+    }
+
+    probe_025m
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type                probes;
+        name                probe_025;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+        fields
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+            rate_product_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+         );
+
+        probeLocations
+        (
+            (0.00225 0.75 0.00025)
+        );
+    }
+
+    probe_05m
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type                probes;
+        name                probe_05;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+        fields
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+            rate_product_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+         );
+
+        probeLocations
+        (
+            (0.00225 0.50 0.00025)
+        );
+    }
+
+
+    probe_075m
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type                probes;
+        name                probe_075;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+        fields
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+            rate_product_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+         );
+
+        probeLocations
+        (
+            (0.00225 0.25 0.00025)
+        );
+    }
+
+    probe_1m
+    {
+        functionObjectLibs ( "libsampling.so" );
+        type                probes;
+        name                probe_1;
+        executeControl      runTime;
+        executeInterval     0.5;
+        writeControl        runTime;
+        writeInterval       0.5;
+        fields
+        (
+            y_AgNO3
+            y_reduc
+            y_Agl
+            y_Ags
+            y_Ags2
+            y_H2O
+            p
+            rate_product_Agl_reduction
+            rate_product_Ags_nuc
+            rate_product_Ags2_g
+         );
+
+        probeLocations
+        (
+            (0.00225 0.0001 0.00025)
+        );
+    }
+
+
+
+}
+
+// ************************************************************************* //
