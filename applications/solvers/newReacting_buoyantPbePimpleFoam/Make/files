@@ -1,0 +1,3 @@
+newReacting_buoyantPbePimpleFoam.C
+
+EXE = $(FOAM_MODULE_APPBIN)/newReacting_buoyantPbePimpleFoam
