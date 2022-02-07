@@ -1,0 +1,13 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+cp -rf 0.org 0
+cp -rf solution.us/150.us .
+cp -f 150.us/* 0/ 2>&1
+
+runApplication blockMesh
+runApplication decomposePar
+
+#------------------------------------------------------------------------------
