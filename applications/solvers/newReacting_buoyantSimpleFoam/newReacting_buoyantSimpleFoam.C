@@ -88,39 +88,68 @@ int main(int argc, char *argv[])
         volScalarField& y_Ags = mesh.lookupObjectRef<volScalarField>("y_Ags");
         volScalarField& y_H2O = mesh.lookupObjectRef<volScalarField>("y_H2O");
 
+        #include "ySuSp.H"
+
         fvScalarMatrix y_AgNO3Eqn
         (
+            //fvm::div(phi, y_AgNO3) 
+            //- fvm::laplacian(rho*D_AgNO3, y_AgNO3) == -(mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
             fvm::div(phi, y_AgNO3)
-            - fvm::laplacian(rho*D_AgNO3, y_AgNO3) == - (mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
+            - fvm::laplacian(rho*D_AgNO3, y_AgNO3) == Su_AgNO3 + fvm::Sp(Sp_AgNO3, y_AgNO3)
+            //fvm::div(phi, y_AgNO3)
+            //- fvm::laplacian(rho*D_AgNO3, y_AgNO3) == fvm::SuSp(-(mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc),y_AgNO3)
         );
 
         fvScalarMatrix y_reducEqn
         (
+            //fvm::div(phi, y_reduc)
+            //- fvm::laplacian(rho*D_reduc, y_reduc) == -(mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
             fvm::div(phi, y_reduc)
-            - fvm::laplacian(rho*D_reduc, y_reduc) == - (mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
+            - fvm::laplacian(rho*D_reduc, y_reduc) == Su_reduc + fvm::Sp(Sp_reduc, y_reduc)
+            //fvm::div(phi, y_reduc)
+            //- fvm::laplacian(rho*D_reduc, y_reduc) == fvm::SuSp(-(mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc),y_reduc)
         );
 
         fvScalarMatrix y_AglEqn
         (
+            //fvm::div(phi, y_Agl)
+            // - fvm::laplacian(rho*D_Agl, y_Agl) == (mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Agl)
-            - fvm::laplacian(rho*D_Agl, y_Agl) == (mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
+            - fvm::laplacian(rho*D_Agl, y_Agl) == Su_Agl + fvm::Sp(Sp_Agl, y_Agl)
+            //fvm::div(phi, y_Agl)
+            //- fvm::laplacian(rho*D_Agl, y_Agl) == fvm::SuSp((mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Agl)
         );
 
         fvScalarMatrix y_AgsEqn
         (
+            //fvm::div(phi, y_Ags)
+            //- fvm::laplacian(rho*D_Ags, y_Ags) == (mw_Ags)*(k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Ags)
-            - fvm::laplacian(rho*D_Ags, y_Ags) == (mw_Ags)*(k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
+            - fvm::laplacian(rho*D_Ags, y_Ags) == Su_Ags + fvm::Sp(Sp_Ags, y_Ags)
+            //fvm::div(phi, y_Ags)
+            //- fvm::laplacian(rho*D_Ags, y_Ags) == fvm::SuSp((mw_Ags)*(k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Ags)
         );
 
         fvScalarMatrix y_Ags2Eqn
         (
+            //fvm::div(phi, y_Ags2)
+             //- fvm::laplacian(rho*D_Ags2, y_Ags2) == (mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Ags2)
-            - fvm::laplacian(rho*D_Ags2, y_Ags2) == (mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
+            - fvm::laplacian(rho*D_Ags2, y_Ags2) == Su_Ags2 + fvm::Sp(Sp_Ags2, y_Ags2)
+            //fvm::div(phi, y_Ags2)
+            //- fvm::laplacian(rho*D_Ags2, y_Ags2) == fvm::SuSp((mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Ags2)
         );
 
         rate_product_Agl_reduction = (mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc));
         rate_product_Ags_nuc = (mw_Ags)*(k1*(rho*y_Agl/mw_Agl));
         rate_product_Ags2_g = (mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags));
+
+        //y_AgNO3.relax();
+        //y_reduc.relax();
+        //y_Agl.relax();
+        //y_Ags.relax();
+        //y_Ags2.relax();
+        //y_H2O.relax();
 
         y_AgNO3Eqn.solve();
         y_reducEqn.solve();
@@ -130,6 +159,18 @@ int main(int argc, char *argv[])
 
         y_H2O = scalar(1) - (y_AgNO3+y_reduc+y_Agl+y_Ags+y_Ags2);
 
+        y_AgNO3.min(1.0);
+        y_AgNO3.max(0.0);
+        y_reduc.min(1.0);
+        y_reduc.max(0.0);
+        y_Agl.min(1.0);
+        y_Agl.max(0.0);
+        y_Ags.min(1.0);
+        y_Ags.max(0.0);
+        y_Ags2.min(1.0);
+        y_Ags2.max(0.0);
+        y_H2O.min(1.0);
+        y_H2O.max(0.0);
 
         runTime.write();
 
@@ -142,6 +183,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
 
 // ************************************************************************* //
