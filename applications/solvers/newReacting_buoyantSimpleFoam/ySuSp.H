@@ -124,12 +124,12 @@ forAll(w_AgNO3, celli)
 {
     if (w_AgNO3[celli] > 0.0)
     {
-        Sp_AgNO3[celli] -= w_AgNO3[celli]/max(1.0 - y_AgNO3[celli], 1e-4);
-        Su_AgNO3[celli] += w_AgNO3[celli]/max(1.0 - y_AgNO3[celli], 1e-4);
+        Sp_AgNO3[celli] -= w_AgNO3[celli]/max(1.0 - y_AgNO3[celli], 1e-9);
+        Su_AgNO3[celli] += w_AgNO3[celli]/max(1.0 - y_AgNO3[celli], 1e-9);
     }
     else if (w_AgNO3[celli] < 0.0)
     {
-        Sp_AgNO3[celli] += w_AgNO3[celli]/max(y_AgNO3[celli], 1e-4);
+        Sp_AgNO3[celli] += w_AgNO3[celli]/max(y_AgNO3[celli], 1e-9);
     }
 }
 
@@ -139,12 +139,12 @@ forAll(w_reduc, celli)
 {
     if (w_reduc[celli] > 0.0)
     {
-        Sp_reduc[celli] -= w_reduc[celli]/max(1.0 - y_reduc[celli], 1e-4);
-        Su_reduc[celli] += w_reduc[celli]/max(1.0 - y_reduc[celli], 1e-4);
+        Sp_reduc[celli] -= w_reduc[celli]/max(1.0 - y_reduc[celli], 1e-9);
+        Su_reduc[celli] += w_reduc[celli]/max(1.0 - y_reduc[celli], 1e-9);
     }
     else if (w_reduc[celli] < 0.0)
     {
-        Sp_reduc[celli] += w_reduc[celli]/max(y_reduc[celli], 1e-4);
+        Sp_reduc[celli] += w_reduc[celli]/max(y_reduc[celli], 1e-9);
     }
 }
 
@@ -154,12 +154,12 @@ forAll(w_Agl, celli)
 {
     if (w_Agl[celli] > 0.0)
     {
-        Sp_Agl[celli] -= w_Agl[celli]/max(1.0 - y_Agl[celli], 1e-4);
-        Su_Agl[celli] += w_Agl[celli]/max(1.0 - y_Agl[celli], 1e-4);
+        Sp_Agl[celli] -= w_Agl[celli]/max(1.0 - y_Agl[celli], 1e-9);
+        Su_Agl[celli] += w_Agl[celli]/max(1.0 - y_Agl[celli], 1e-9);
     }
     else if (w_Agl[celli] < 0.0)
     {
-        Sp_Agl[celli] += w_Agl[celli]/max(y_Agl[celli], 1e-4);
+        Sp_Agl[celli] += w_Agl[celli]/max(y_Agl[celli], 1e-9);
     }
 }
 
@@ -169,12 +169,12 @@ forAll(w_Ags, celli)
 {
     if (w_Ags[celli] > 0.0)
     {
-        Sp_Ags[celli] -= w_Ags[celli]/max(1.0 - y_Ags[celli], 1e-4);
-        Su_Ags[celli] += w_Ags[celli]/max(1.0 - y_Ags[celli], 1e-4);
+        Sp_Ags[celli] -= w_Ags[celli]/max(1.0 - y_Ags[celli], 1e-9);
+        Su_Ags[celli] += w_Ags[celli]/max(1.0 - y_Ags[celli], 1e-9);
     }
     else if (w_Ags[celli] < 0.0)
     {
-        Sp_Ags[celli] += w_Ags[celli]/max(y_Ags[celli], 1e-4);
+        Sp_Ags[celli] += w_Ags[celli]/max(y_Ags[celli], 1e-9);
     }
 }
 
@@ -184,11 +184,11 @@ forAll(w_Ags2, celli)
 {
     if (w_Ags2[celli] > 0.0)
     {
-        Sp_Ags2[celli] -= w_Ags2[celli]/max(1.0 - y_Ags2[celli], 1e-4);
-        Su_Ags2[celli] += w_Ags2[celli]/max(1.0 - y_Ags2[celli], 1e-4);
+        Sp_Ags2[celli] -= w_Ags2[celli]/max(1.0 - y_Ags2[celli], 1e-9);
+        Su_Ags2[celli] += w_Ags2[celli]/max(1.0 - y_Ags2[celli], 1e-9);
     }
     else if (w_Ags2[celli] < 0.0)
     {
-        Sp_Ags2[celli] += w_Ags2[celli]/max(y_Ags2[celli], 1e-4);
+        Sp_Ags2[celli] += w_Ags2[celli]/max(y_Ags2[celli], 1e-9);
     }
 }
