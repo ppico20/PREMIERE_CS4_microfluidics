@@ -250,6 +250,7 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
 {
     dimensionedScalar D0("D0", dimVolume/dimTime, 3.981e-19);
     dimensionedScalar L0("L0", dimLength, 1e-12);
+    Info << L0 << endl;
 
     forAll(quadrature().momentOrders(), mi)
      {
@@ -257,6 +258,8 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
             bool lengthBased = nodes[0].lengthBased();
             label sizeIndex = nodes[0].sizeIndex();
             bool volumeFraction = nodes[0].useVolumeFraction();
+
+            //Info << nodes << endl;
            
             const labelList& scalarIndexes = nodes[0].scalarIndexes();
 
@@ -313,8 +316,9 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
                                     );
                                 }
                             }
-
+                            Info << bAbscissa << endl;
                             dSource[celli] += dSourcei[celli];
+                            Info << dSource[celli] << endl;
                         }
 
                     }
@@ -326,6 +330,7 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
      }
 
     odeType::solve(quadrature_, 0);
+    Info << diffusiveTerm_ << endl;
     
     // diffusiveTerm_[momentOrder] = fvc::laplacian(D0*L0, dSource);
 }
