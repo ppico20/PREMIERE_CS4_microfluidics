@@ -30,6 +30,7 @@ License
 
 #include "univariatePopulationBalance_SE.H"
 #include "addToRunTimeSelectionTable.H"
+#include "fvcLaplacian.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
@@ -64,7 +65,7 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
     univariatePDFTransportModel(name, dict, phi.mesh(), phi, "RPlus"),
     populationBalanceModel(name, dict, phi),
     odeType(phi.mesh(), dict),
-    diffusiveTerm_(5),
+    diffusiveTerm_(quadrature().nMoments()),
     aggregation_(dict.lookupOrDefault("aggregation", false)),
     breakup_(dict.lookupOrDefault("breakup", false)),
     growth_(dict.lookupOrDefault("growth", false)),
@@ -200,7 +201,7 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
         source += nucleationModel_->nucleationSource(momentOrder[0], celli);
     }
 
-    source += diffusiveTerm_[momentOrder][celli];
+    source += diffusiveTerm_[momentOrder[0]][celli];
 
     return source;
 }
@@ -231,113 +232,6 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
         return odeType::solveSources_;
     }
 
-    scalar dSource(0);
-    scalar L0(1e-12);
-    scalar D0(1e-12);
-
-    const labelList& momentOrder,
-    const label celli,
-    const scalarQuadratureApproximation& quadrature,
-    const label environment
-
-    const PtrList<volScalarNode>& nodes = quadrature.nodes();
-    bool lengthBased = nodes[0].lengthBased();
-    label sizeIndex = nodes[0].sizeIndex();
-
-    if (sizeIndex == -1)
-    {
-        return dSource;
-    }
-
-    label sizeOrder = momentOrder[sizeIndex];
-
-    bool volumeFraction = nodes[0].useVolumeFraction();
-    if (volumeFraction)
-    {
-        if (lengthBased)
-        {
-            sizeOrder += 3;
-        }
-        else
-        {
-            sizeOrder += 1;
-        }
-    }
-
-    const labelList& scalarIndexes = nodes[0].scalarIndexes();
-
-    if (!nodes[0].extended())
-    {
-        forAll(nodes, pNodeI)
-        {
-            const volScalarNode& node = nodes[pNodeI];
-
-            scalar bAbscissa =
-                max(node.primaryAbscissae()[sizeIndex][celli], scalar(0));
-            scalar d = node.d(celli, bAbscissa);
-            scalar n =
-                node.n(celli, node.primaryWeight()[celli], bAbscissa);
-
-            scalar dSourcei =
-
-                (D0*L0*n*pow(bAbscissa, sizeOrder))/(bAbscissa + L0);
-
-            forAll(scalarIndexes, nodei)
-            {
-                if (scalarIndexes[nodei] != sizeIndex)
-                {
-                    dSourcei *=
-                        pow
-                        (
-                            node.primaryAbscissae()[nodei][celli],
-                            momentOrder[scalarIndexes[nodei]]
-                        );
-                }
-            }
-            dSource += dSourcei;
-        }
-    }
-
-    forAll(nodes, pNodeI)
-    {
-        const volScalarNode& node = nodes[pNodeI];
-
-        forAll(node.secondaryWeights()[sizeIndex], sNodei)
-        {
-            scalar bAbscissa =
-                max
-                (
-                    node.secondaryAbscissae()[sizeIndex][sNodei][celli],
-                    scalar(0)
-                );
-            scalar d = node.d(celli, bAbscissa);
-            scalar n =
-                node.n(celli, node.primaryWeight()[celli], bAbscissa)
-               *node.secondaryWeights()[sizeIndex][sNodei][celli];
-
-            scalar dSourcei =
-
-                (D0*L0*n*pow(bAbscissa, sizeOrder))/(bAbscissa + L0);
-
-            forAll(scalarIndexes, cmpt)
-            {
-                if (scalarIndexes[cmpt] != sizeIndex)
-                {
-                    dSourcei *=
-                        node.secondaryWeights()[cmpt][sNodei][celli]
-                       *pow
-                        (
-                            node.secondaryAbscissae()[cmpt][sNodei][celli],
-                            momentOrder[scalarIndexes[cmpt]]
-                        );
-                }
-            }
-            dSource += dSourcei;
-        }
-    }
-
-    diffusiveTerm_[momentOrder] = fvc::laplacian(D0*L0, dSource);
-
     return false;
 }
 
@@ -354,7 +248,46 @@ void
 Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_SE
 ::explicitMomentSource()
 {
+    dimensionedScalar D0("D0", dimVolume/dimTime, 1e-12);
+    dimensionedScalar L0("L0", dimLength, 1e-12);
+    scalar dSource = 0.0;
+
+    forAll(quadrature().momentOrders(), mi)
+     {
+        forAll(quadrature_.moments()(0), celli)
+        {
+            const PtrList<volScalarNode>& nodes = quadrature_.nodes();
+            bool lengthBased = nodes[0].lengthBased();
+            label sizeIndex = nodes[0].sizeIndex();
+            bool volumeFraction = nodes[0].useVolumeFraction();
+
+                if (sizeIndex == -1)
+                {
+                    dSource = 0.0;
+                }
+
+            label sizeOrder = quadrature_.momentOrders[sizeIndex];
+    
+            //     if (volumeFraction)
+            //     {
+            //         if (lengthBased)
+            //         {
+            //             sizeOrder += 3;
+            //         }
+            //         else
+            //         {
+            //             sizeOrder += 1;
+            //         }
+            //     }
+
+            volScalarField diffusioni = 0 * quadrature_.moments()(0);
+            diffusiveTerm_[mi] = fvc::laplacian(D0*L0, diffusioni);
+        }
+     }
+
     odeType::solve(quadrature_, 0);
+    
+    // diffusiveTerm_[momentOrder] = fvc::laplacian(D0*L0, dSource);
 }
 
 

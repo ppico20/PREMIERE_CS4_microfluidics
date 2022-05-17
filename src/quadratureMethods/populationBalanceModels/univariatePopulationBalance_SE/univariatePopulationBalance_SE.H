@@ -115,7 +115,7 @@ class univariatePopulationBalance_SE
             Foam::populationBalanceSubModels::nucleationModel
         > nucleationModel_;
 
-        PtrList<volVectorField> diffusiveTerm_;
+        PtrList<volScalarField> diffusiveTerm_;
 
     // Private member functions
 
