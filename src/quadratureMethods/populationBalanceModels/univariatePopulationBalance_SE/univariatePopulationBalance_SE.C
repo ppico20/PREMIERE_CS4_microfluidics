@@ -248,12 +248,8 @@ void
 Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_SE
 ::explicitMomentSource()
 {
-    dimensionedScalar D0("D0", dimVolume/dimTime, 1e-12);
+    dimensionedScalar D0("D0", dimVolume/dimTime, 3.981e-19);
     dimensionedScalar L0("L0", dimLength, 1e-12);
-
-    // scalar L0 = 1e-12;
-    // scalar D0 = 1e-12;
-    scalar dSource = 0.0;
 
     forAll(quadrature().momentOrders(), mi)
      {
@@ -261,30 +257,33 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
             bool lengthBased = nodes[0].lengthBased();
             label sizeIndex = nodes[0].sizeIndex();
             bool volumeFraction = nodes[0].useVolumeFraction();
-
-                if (sizeIndex == -1)
-                {
-                    dSource = 0.0;
-                }
-
-            label sizeOrder = quadrature().momentOrders()[mi][sizeIndex];
-    
-                if (volumeFraction)
-                {
-                    if (lengthBased)
-                    {
-                        sizeOrder += 3;
-                    }
-                    else
-                    {
-                        sizeOrder += 1;
-                    }
-                }
-            
+           
             const labelList& scalarIndexes = nodes[0].scalarIndexes();
 
                 forAll(quadrature_.moments()(0), celli)
                 {
+                    volScalarField dSource = 0 * quadrature_.moments()(0);
+                    volScalarField dSourcei = 0 * quadrature_.moments()(0);
+
+                    if (sizeIndex == -1)
+                    {
+                        dSource[celli] = 0.0;
+                    }
+
+                label sizeOrder = quadrature().momentOrders()[mi][sizeIndex];
+    
+                    if (volumeFraction)
+                    {
+                        if (lengthBased)
+                        {
+                            sizeOrder += 3;
+                        }
+                        else
+                        {
+                            sizeOrder += 1;
+                        }
+                    }
+
                     if (!nodes[0].extended())
                     {
                         forAll(nodes, pNodeI)
@@ -297,29 +296,30 @@ Foam::PDFTransportModels::populationBalanceModels::univariatePopulationBalance_S
                             scalar n =
                             node.n(celli, node.primaryWeight()[celli], bAbscissa);
 
-                            scalar dSourcei =
+                            dSourcei[celli] =
                             n
                             *pow(bAbscissa,sizeOrder)
-                            *pow(bAbscissa,-1.0);
-                            // forAll(scalarIndexes, nodei)
-                            // {
-                            //     if (scalarIndexes[nodei] != sizeIndex)
-                            //     {
-                            //         dSourcei *=
-                            //         pow
-                            //         (
-                            //             node.primaryAbscissae()[nodei][celli],
-                            //             quadrature().momentOrders()[mi][scalarIndexes[nodei]]
-                            //         );
-                            //     }
-                            // }
+                            *pow(bAbscissa + L0.value(),-1.0);
 
-                            dSource += dSourcei;
+                            forAll(scalarIndexes, nodei)
+                            {
+                                if (scalarIndexes[nodei] != sizeIndex)
+                                {
+                                    dSourcei *=
+                                    pow
+                                    (
+                                        node.primaryAbscissae()[nodei][celli],
+                                        quadrature().momentOrders()[mi][scalarIndexes[nodei]]
+                                    );
+                                }
+                            }
+
+                            dSource[celli] += dSourcei[celli];
                         }
 
                     }
 
-            volScalarField diffusioni = 0 * quadrature_.moments()(0);
+            //volScalarField diffusioni = 0 * quadrature_.moments()(0);
             //diffusiveTerm_[mi] = fvc::laplacian(D0*L0, diffusioni);
             diffusiveTerm_[mi] = fvc::laplacian(D0*L0, dSource);
         }
