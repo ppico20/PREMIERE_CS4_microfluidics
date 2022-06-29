@@ -118,7 +118,7 @@ volScalarField::Internal Su_Ags2
     dimensionedScalar("Su_Ags2", rho.dimensions()*y_Ags2.dimensions()/dimTime, 0)
 );
 
-const volScalarField w_AgNO3(-(mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc));
+const volScalarField w_AgNO3((mw_AgNO3)*(-nu_AgNO3)*kr*(pow(rho*y_AgNO3/mw_AgNO3,nu_AgNO3))*(pow(rho*y_reduc/mw_reduc,nu_reduc)));
 
 forAll(w_AgNO3, celli)
 {
@@ -133,10 +133,13 @@ forAll(w_AgNO3, celli)
     }
 }
 
-const volScalarField w_reduc(-(mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc));
+const volScalarField w_reduc((mw_reduc)*(-nu_reduc)*kr*(pow(rho*y_AgNO3/mw_AgNO3,nu_AgNO3))*(pow(rho*y_reduc/mw_reduc,nu_reduc)));
 
 forAll(w_reduc, celli)
 {
+    //Sp_reduc[celli] += nu_reduc*w_reduc[celli]/max(y_reduc[celli], 1e-12);
+    //Su_reduc[celli] -= w_reduc[celli] -  nu_reduc*w_reduc[celli]/max(y_reduc[celli], 1e-12);
+
     if (w_reduc[celli] > 0.0)
     {
         Sp_reduc[celli] -= w_reduc[celli]/max(1.0 - y_reduc[celli], 1e-9);
@@ -146,9 +149,10 @@ forAll(w_reduc, celli)
     {
         Sp_reduc[celli] += w_reduc[celli]/max(y_reduc[celli], 1e-9);
     }
+
 }
 
-const volScalarField w_Agl((mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)));
+const volScalarField w_Agl((mw_Agl)*(kr*(pow(rho*y_AgNO3/mw_AgNO3,nu_AgNO3))*(pow(rho*y_reduc/mw_reduc,nu_reduc))-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)));
 
 forAll(w_Agl, celli)
 {

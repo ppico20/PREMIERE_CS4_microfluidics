@@ -173,6 +173,16 @@ dimensionedScalar kr
      reactionProperties.lookup("kr")
 );
 
+dimensionedScalar nu_AgNO3
+(
+     reactionProperties.lookup("nu_AgNO3")
+);
+
+dimensionedScalar nu_reduc
+(
+     reactionProperties.lookup("nu_reduc")
+);
+
 dimensionedScalar k1
 (
      reactionProperties.lookup("k1")

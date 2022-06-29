@@ -92,64 +92,44 @@ int main(int argc, char *argv[])
 
         fvScalarMatrix y_AgNO3Eqn
         (
-            //fvm::div(phi, y_AgNO3) 
-            //- fvm::laplacian(rho*D_AgNO3, y_AgNO3) == -(mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
             fvm::div(phi, y_AgNO3)
             - fvm::laplacian(rho*D_AgNO3, y_AgNO3) == Su_AgNO3 + fvm::Sp(Sp_AgNO3, y_AgNO3)
-            //fvm::div(phi, y_AgNO3)
-            //- fvm::laplacian(rho*D_AgNO3, y_AgNO3) == fvm::SuSp(-(mw_AgNO3)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc),y_AgNO3)
         );
 
         fvScalarMatrix y_reducEqn
         (
-            //fvm::div(phi, y_reduc)
-            //- fvm::laplacian(rho*D_reduc, y_reduc) == -(mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)
             fvm::div(phi, y_reduc)
             - fvm::laplacian(rho*D_reduc, y_reduc) == Su_reduc + fvm::Sp(Sp_reduc, y_reduc)
-            //fvm::div(phi, y_reduc)
-            //- fvm::laplacian(rho*D_reduc, y_reduc) == fvm::SuSp(-(mw_reduc)*kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc),y_reduc)
         );
 
         fvScalarMatrix y_AglEqn
         (
-            //fvm::div(phi, y_Agl)
-            // - fvm::laplacian(rho*D_Agl, y_Agl) == (mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Agl)
             - fvm::laplacian(rho*D_Agl, y_Agl) == Su_Agl + fvm::Sp(Sp_Agl, y_Agl)
-            //fvm::div(phi, y_Agl)
-            //- fvm::laplacian(rho*D_Agl, y_Agl) == fvm::SuSp((mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc)-k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Agl)
         );
 
         fvScalarMatrix y_AgsEqn
         (
-            //fvm::div(phi, y_Ags)
-            //- fvm::laplacian(rho*D_Ags, y_Ags) == (mw_Ags)*(k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Ags)
             - fvm::laplacian(rho*D_Ags, y_Ags) == Su_Ags + fvm::Sp(Sp_Ags, y_Ags)
-            //fvm::div(phi, y_Ags)
-            //- fvm::laplacian(rho*D_Ags, y_Ags) == fvm::SuSp((mw_Ags)*(k1*(rho*y_Agl/mw_Agl)-k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Ags)
         );
 
         fvScalarMatrix y_Ags2Eqn
         (
-            //fvm::div(phi, y_Ags2)
-             //- fvm::laplacian(rho*D_Ags2, y_Ags2) == (mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags))
             fvm::div(phi, y_Ags2)
             - fvm::laplacian(rho*D_Ags2, y_Ags2) == Su_Ags2 + fvm::Sp(Sp_Ags2, y_Ags2)
-            //fvm::div(phi, y_Ags2)
-            //- fvm::laplacian(rho*D_Ags2, y_Ags2) == fvm::SuSp((mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags)),y_Ags2)
         );
 
-        rate_product_Agl_reduction = (mw_Agl)*(kr*(rho*y_AgNO3/mw_AgNO3)*(rho*y_reduc/mw_reduc));
+        rate_product_Agl_reduction = (mw_Agl)*(kr*(pow(rho*y_AgNO3/mw_AgNO3,nu_AgNO3))*(pow(rho*y_reduc/mw_reduc,nu_reduc)));
         rate_product_Ags_nuc = (mw_Ags)*(k1*(rho*y_Agl/mw_Agl));
         rate_product_Ags2_g = (mw_Ags2)*(k2*(rho*y_Agl/mw_Agl)*(rho*y_Ags/mw_Ags));
 
-        //y_AgNO3.relax();
-        //y_reduc.relax();
-        //y_Agl.relax();
-        //y_Ags.relax();
-        //y_Ags2.relax();
-        //y_H2O.relax();
+        y_AgNO3.relax();
+        y_reduc.relax();
+        y_Agl.relax();
+        y_Ags.relax();
+        y_Ags2.relax();
+        y_H2O.relax();
 
         y_AgNO3Eqn.solve();
         y_reducEqn.solve();
