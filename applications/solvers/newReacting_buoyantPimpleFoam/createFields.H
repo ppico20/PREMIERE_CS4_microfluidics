@@ -189,6 +189,16 @@ dimensionedScalar kr
      reactionProperties.lookup("kr")
 );
 
+dimensionedScalar nu_AgNO3
+(
+     reactionProperties.lookup("nu_AgNO3")
+);
+
+dimensionedScalar nu_reduc
+(
+     reactionProperties.lookup("nu_reduc")
+);
+
 dimensionedScalar k1
 (
      reactionProperties.lookup("k1")
@@ -325,8 +335,26 @@ volScalarField y_H2O
         dimMass/(dimVolume*dimTime)
      );
 
+Info<< "Reading populationBalanceProperties\n" << endl;
 
+IOdictionary populationBalanceProperties
+(
+    IOobject
+    (
+        "populationBalanceProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
 
+surfaceScalarField phiByRho("phiByRho", phi/fvc::interpolate(rho));
 
-
-
+autoPtr<populationBalanceModel> populationBalance
+(
+    populationBalanceModel::New
+    (
+        "populationBalance", populationBalanceProperties, phiByRho
+    )
+);
