@@ -52,7 +52,17 @@ One library, named 'libcompressible', was written to include custom models for n
 
 ### Nucleation model (nucleation_reaction):
 
-This is a reactive
+This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following equation:
+
+$J(y_{j}) = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}[Ag_{(l)}](y_{j}),$
+
+where $N_{av}$, $d_{m}$, $d_{crit}$, and $k_{1}$ are constants of the model
+
+### Growth model (growth_reaction):
+
+This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following equation:
+
+$J = $
 
 ## Installation
 
