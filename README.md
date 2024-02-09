@@ -50,22 +50,21 @@ This is another testing solver in which all equations are solved in a 'one-cell'
 
 One library, named 'libcompressible', was written to include custom models for nucleation, growth, and a special treatment for particle diffusion in the population balance equation, which we explain below:
 
-### Nucleation model (nucleation_reaction):
+### Nucleation model ([nucleation_reaction](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/libcompressible/nucleationModels/nucleation_reaction)):
 
 This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following expression:
 
-$J(y_{j}) = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}C_{Ag_{(l)}}),$
+$J = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}C_{Ag_{(l)}},$
 
-where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary 
-```constant/populationBalanceProperties```.
+where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary ```constant/populationBalanceProperties```. $C_{Ag_{(l)} = \rho y_{Ag_{(l)} / MW_{Ag_{(l)}$ is the molar concentration of $Ag_{(l)}$, directly dependent on its mass fraction in solution, $y_{y_{Ag_{(l)}}$, obtained from solving the aforementioned convection-diffusion equations. $\rho$ corresponds to the density of the continuous phase, and $MW_{Ag_{(l)}}$ the molecular weight of $Ag_{(l)}$, defined by the user in ```constant/reactionProperties```.
 
-### Growth model (growth_reaction):
+### Growth model ([growth_reaction](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/libcompressible/growthModels/growth_reaction)):
 
 This is a growth model extended from the F-W mechanism. It calculates the size-dependent growth rate using the following expression: 
 
-$G(y_{j},L) = \frac{1}{3}k_{2}LC_{Ag_{(l)}}),$
+$G = \frac{1}{3}k_{2}LC_{Ag_{(l)}}),$
 
-where $k_{2}$ is the growth kinetic constant, also declared by the user in constant/populationBalanceProperties.
+where $k_{2}$ is the growth kinetic constant, also declared by the user in ```constant/populationBalanceProperties```.
 
 ### Diffusion model (stokesEinstein):
 
