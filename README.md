@@ -34,7 +34,7 @@ The following figure shows a schematic of the proposed coupling between PBM and 
 
 ## Available solvers
 
-### newReacting_buoyantPbePimpleFoam:
+### [newReacting_buoyantPbePimpleFoam](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/applications/solvers/newReacting_buoyantPbePimpleFoam):
 
 This is the package's primary solver. Besides solving the continuity and momentum conservation equations, it incorporates five additional reactive convection-diffusion equations for each of the main species present in our system ($SN$: silver precursor, $R$: reducing agent, $Ag_{(l)}$: silver atoms in liquid, $Ag_{s}$: silver nuclei, $Ag_{s2}$: silver nuclei which have grown into AgNPs). It also solves the population balance equation via the quadrature method of moments. In our formulation, we use a univariate number density function with particle size, L, as the internal coordinate. Therefore, we obtain the fiels of the first $k$ moments of the PSD in a specific domain; we can then approximate the PSD with its moments.
 
@@ -52,17 +52,23 @@ One library, named 'libcompressible', was written to include custom models for n
 
 ### Nucleation model (nucleation_reaction):
 
-This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following equation:
+This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following expression:
 
-$J(y_{j}) = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}[Ag_{(l)}](y_{j}),$
+$J(y_{j}) = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}C_{Ag_{(l)}}),$
 
-where $N_{av}$, $d_{m}$, $d_{crit}$, and $k_{1}$ are constants of the model
+where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary constant/populationBalanceProperties.
 
 ### Growth model (growth_reaction):
 
-This is a nucleation model extended from the F-W mechanism. It calculates the nucleation rate (i.e., rate of silver nuclei produced per unit volume) using the following equation:
+This is a growth model extended from the F-W mechanism. It calculates the size-dependent growth rate using the following expression: 
 
-$J = $
+$G(y_{j},L) = \frac{1}{3}k_{2}LC_{Ag_{(l)}}),$
+
+where $k_{2}$ is the growth kinetic constant, also declared by the user in constant/populationBalanceProperties.
+
+### Diffusion model (stokesEinstein):
+
+In solid-liquid systems, 
 
 ## Installation
 
