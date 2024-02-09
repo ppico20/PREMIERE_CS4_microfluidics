@@ -11,6 +11,8 @@ Nathanael, K., **<ins>Pico, P.</ins>**, Kovalchuk, N.M., Lavino, A.D., Simmons, 
 
 ## Table of Contents
 - [Background](#background)
+- [Available solvers](#solvers)
+- [Available libraries](#libraries)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
@@ -22,9 +24,11 @@ Our framework is based on an extension of the classic **[Finke-Watzky two-step m
 
 - Addition of an elementary reduction reaction of the form $SN + \nu_{R}R \xrightarrow{k_{r}} Ag_{(l)}$, where $SN$ denotes the silver precursor, $R$ a generic reducing agent, $Ag_{(l)}$ silver atoms in liquid, and $k_{r}$ is the kinetic constant associated with this reduction reaction. 
 
-- Addition of reactive convection-diffusion equations of the form $\frac{\partial (\rho y_{j})}{\partial t} + \nabla_{\textbf{x}}\cdot(\rho \textbf{u}y_{j}) = \nabla_{\textbf{x}}\cdot(D_{j}\nabla_{\textbf{x}}(\rho y_{j})) + S_{j}$ for species $i$. These equations determine the concentration of each species in the system, which are connected to PBM througb models of nucleation and growth.
+- Addition of reactive convection-diffusion equations of the form $\frac{\partial (\rho y_{j})}{\partial t} + \nabla_{\textbf{x}}\cdot(\rho \textbf{u}y_{j}) = \nabla_{\textbf{x}}\cdot(D_{j}\nabla_{\textbf{x}}(\rho y_{j})) + S_{j}$ for species $i$. These equations determine the concentration of each species in the system, which are connected to PBM through models of nucleation and growth.
   
 - Inclusion of size-dependent particle diffusion, convection, and agglomeration in the population balance equation.
+
+The following figure shows a schematic of the proposed coupling between PBM and CFD. In essence, on the CFD side of things we solve for the hydrodynamic and reactive aspects of the system (i.e., velocity, pressure, and species concentration fields). On the PBM side, we solve for the PSD (using a univariate number density function) using a few nucleation, growth, and agglomeration models, which themselves depend on velocity, pressure, and species concentration:
 
 ![coupling](https://github.com/ppico20/PREMIERE_CS4_microfluidics/blob/master/Coupling_PBM-CFD.png)
 
@@ -32,10 +36,18 @@ Our framework is based on an extension of the classic **[Finke-Watzky two-step m
 
 ### newReacting_buoyantPbePimpleFoam:
 
-### newReacting_pbeFoam: 
+This is the package's main solver. Besides solving the continuity and momentum conservation equations, it incorporates five additional reactive convection-diffusion equations for each species present in our system ($SN$: silver precursor, $R$: reducing agent, $Ag_{(l)}$: silver atoms in liquid, $Ag_{s}$: silver nuclei, $Ag_{s2}$: silver nuclei which have grown into AgNPs). It also solves the population balance equation via the quadrature method of moments. In our formulation, we use a univariate number density function with particle size, L, as the internal coordinate. Therefore, we obtain the solution of t
 
-### FW_pbeFoam: 
-Validation solver based on the FW two-step mechanism
+### newReacting_buoyantSimpleFoam:
+
+This is a testing solver to exclusively solve for velocity, pressure, and species concentration, without activating the PBM. Since applications related to nanoparticles synthesis involve highly diluted systems, the motion of the particles will not have a major influence on the continuous phase. A such, removing the PBM portion will not have an influence on the velocity field.
+
+### newReacting_pbeFoam:
+
+This is another testing solver in which all equations are solved in a 'one-cell' domain. What this means is that all spatial terms are removed from the equations, leading to temporal dependencies only. This is equivalent to assuming all reagents are in a state of perfect mixing initially and thus no reaction delays occur due to diffusive or convective mixing.
+
+## Available libraries:
+
 
 
 ## Installation
