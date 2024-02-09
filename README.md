@@ -1,7 +1,7 @@
 # Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations (AgNPs_PSD)
 
 ## Overview
-This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. More information can be found in our publication in Chemical Engineering Journal:
+This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. The solvers and libraries are based on OpenQBMM, an OpenFoam-based implementation of the Quadrature Method of Moments. More information can be found in our publication in Chemical Engineering Journal:
 
 **<ins>Pico, P.</ins>**, Nathanael, K., Lavino, A.D., Kovalchuk, N.M., Simmons, M.J.H. and Matar, O.K. (2023). "*Silver nanoparticles synthesis in microfluidic and well-mixed reactors: A combined experimental and PBM-CFD study*". Chem. Eng. J., 474, p.145692. **[DOI: 10.1016/j.cej.2023.145692](https://www.sciencedirect.com/science/article/pii/S1385894723044236)**
 
@@ -20,9 +20,11 @@ Nathanael, K., **<ins>Pico, P.</ins>**, Kovalchuk, N.M., Lavino, A.D., Simmons, 
 
 Our framework is based on an extension of the classic **[Finke-Watzky two-step mechanism](https://pubs.acs.org/doi/10.1021/ja9705102)** (FW), which predicts the temporal evolution of reagent consumption and PSD in batch reactors for reduction-based synthesis of metal nanoparticles. This model was originally designed for well-mixed systems in which effects related to transport phenomena in a reactor (i.e., reactants mixing) are not taken into account. Given the critical importance of mixing effects in microreactors, we propose a few modifications to the FW mechanism. A summary of these modifications is as follows:
 
-- Addition of a reduction reaction of the form:
+- Addition of an elementary reduction reaction of the form $SN + \nu_{R}R \xrightarrow{k_{r}} Ag_{(l)}$, where $SN$ denotes the silver precursor, $R$ a generic reducing agent, $Ag_{(l)}$ silver atoms in liquid, and $k_{r}$ is the kinetic constant associated with this reduction reaction. 
 
-- $x + y$
+- Addition of reactive convection-diffusion equations of the form $\frac{\partial (\rho y_{j})}{\partial t} + \nabla_{\textbf{x}}\cdot(\rho \textbf{u}y_{j}) = \nabla_{\textbf{x}}\cdot(D_{j}\nabla_{\textbf{x}}(\rho y_{j})) + S_{j}$. These equations determine the concentration of each species in the system, which are connected to PBM througb models of nucleation and growth.
+  
+- Inclusion of size-dependent particle diffusion, convection, and agglomeration in the population balance equation.
 
 ## Installation
 
