@@ -56,7 +56,7 @@ This is a nucleation model extended from the F-W mechanism. It calculates the nu
 
 $J = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}C_{Ag_{(l)}},$
 
-where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary ```constant/populationBalanceProperties```. $C_{Ag_{(l)} = \rho y_{Ag_{(l)} / MW_{Ag_{(l)}$ is the molar concentration of $Ag_{(l)}$, directly dependent on its mass fraction in solution, $y_{y_{Ag_{(l)}}$, obtained from solving the aforementioned convection-diffusion equations. $\rho$ corresponds to the density of the continuous phase, and $MW_{Ag_{(l)}}$ the molecular weight of $Ag_{(l)}$, defined by the user in ```constant/reactionProperties```.
+where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary ```constant/populationBalanceProperties```. $C_{Ag_{(l)}} = \rho y_{Ag_{(l)}} / MW_{Ag_{(l)}}$ is the molar concentration of $Ag_{(l)}$, directly dependent on its mass fraction in solution, $y_{Ag_{(l)}}$, obtained from solving the aforementioned convection-diffusion equations. $\rho$ corresponds to the density of the continuous phase, and $MW_{Ag_{(l)}}$ the molecular weight of $Ag_{(l)}$, defined by the user in ```constant/reactionProperties```.
 
 ### Growth model ([growth_reaction](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/libcompressible/growthModels/growth_reaction)):
 
