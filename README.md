@@ -1,4 +1,4 @@
-# Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations (AgNPs_PSD)
+# AgNPs_PSD: Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations
 
 ## Overview
 This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. The solvers and libraries are based on **[OpenQBMM](https://github.com/OpenQBMM/OpenQBMM)**, an OpenFoam-based implementation of the **[Quadrature Method of Moments](https://www.sciencedirect.com/science/article/pii/S0009250917306590?via%3Dihub)**. More information can be found in our publication in Chemical Engineering Journal:
@@ -26,11 +26,16 @@ Our framework is based on an extension of the classic **[Finke-Watzky two-step m
   
 - Inclusion of size-dependent particle diffusion, convection, and agglomeration in the population balance equation.
 
-## Solver and libraries
+![coupling](https://github.com/ppico20/PREMIERE_CS4_microfluidics/blob/master/Coupling_PBM-CFD.png)
 
-### Solvers:
-- **newReacting_buoyantPbePimpleFoam**: The main solver of this project.
-- **FW_pbeFoam**: Validation solver
+## Available solvers
+
+### newReacting_buoyantPbePimpleFoam:
+
+### newReacting_pbeFoam: 
+
+### FW_pbeFoam: 
+Validation solver based on the FW two-step mechanism
 
 
 ## Installation
