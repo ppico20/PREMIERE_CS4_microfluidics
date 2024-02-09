@@ -11,8 +11,8 @@ Nathanael, K., **<ins>Pico, P.</ins>**, Kovalchuk, N.M., Lavino, A.D., Simmons, 
 
 ## Table of Contents
 - [Background](#background)
-- [Available solvers](#solvers)
-- [Available libraries](#libraries)
+- [Available solvers](#available-solvers)
+- [Available libraries](#available-libraries)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
@@ -36,7 +36,7 @@ The following figure shows a schematic of the proposed coupling between PBM and 
 
 ### newReacting_buoyantPbePimpleFoam:
 
-This is the package's main solver. Besides solving the continuity and momentum conservation equations, it incorporates five additional reactive convection-diffusion equations for each species present in our system ($SN$: silver precursor, $R$: reducing agent, $Ag_{(l)}$: silver atoms in liquid, $Ag_{s}$: silver nuclei, $Ag_{s2}$: silver nuclei which have grown into AgNPs). It also solves the population balance equation via the quadrature method of moments. In our formulation, we use a univariate number density function with particle size, L, as the internal coordinate. Therefore, we obtain the solution of t
+This is the package's primary solver. Besides solving the continuity and momentum conservation equations, it incorporates five additional reactive convection-diffusion equations for each of the main species present in our system ($SN$: silver precursor, $R$: reducing agent, $Ag_{(l)}$: silver atoms in liquid, $Ag_{s}$: silver nuclei, $Ag_{s2}$: silver nuclei which have grown into AgNPs). It also solves the population balance equation via the quadrature method of moments. In our formulation, we use a univariate number density function with particle size, L, as the internal coordinate. Therefore, we obtain the fiels of the first $k$ moments of the PSD in a specific domain; we can then approximate the PSD with its moments.
 
 ### newReacting_buoyantSimpleFoam:
 
@@ -48,7 +48,11 @@ This is another testing solver in which all equations are solved in a 'one-cell'
 
 ## Available libraries:
 
+One library, named 'libcompressible', was written to include custom models for nucleation, growth, and a special treatment for particle diffusion in the population balance equation, which we explain below:
 
+### Nucleation model (nucleation_reaction):
+
+This is a reactive
 
 ## Installation
 
