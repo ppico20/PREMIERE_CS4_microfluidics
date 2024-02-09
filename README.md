@@ -1,6 +1,8 @@
-# Modeling the Particle Size Distribution of AgNPs in Continuous-Flow Microchannels and Batch Reactors with PBM-CFD
+# Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations (AgNPs_PSD)
 
-This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors.
+This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. More information can be found in our publication in Chemical Engineering Journal:
+
+<ins>Pico, P.<ins>, Nathanael, K., Lavino, A.D., Kovalchuk, N.M., Simmons, M.J.H. and Matar, O.K. (2023). "Silver nanoparticles synthesis in microfluidic and well-mixed reactors: A combined experimental and PBM-CFD study". Chem. Eng. J., 474, p.145692.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -16,7 +18,14 @@ This project focuses on providing a numerical framework based on coupled PBM-CFD
 
 ## Credits
 
-This project is a collaborative effort between Imperial College London and University of Birmingham.
+This project is a collaborative effort between Imperial College London (ICL, numerical and computational part) and University of Birmingham (UB, experimental part). The project's contributors are the following:
+
+- Paula Pico (ICL)
+- Konstantina Nathanael (UB)
+- Dr. Alessio Lavino (ICL)
+- Dr. Nina Kovalchuk (UB)
+- Prof. Mark Simmons (UB)
+- Prof. Omar Matar (ICL)
 
 ## Contact
 - p.pico20@imperial.ac.uk - Paula Pico
