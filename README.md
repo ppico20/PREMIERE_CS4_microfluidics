@@ -1,17 +1,24 @@
 # Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations (AgNPs_PSD)
 
+## Overview
 This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. More information can be found in our publication in Chemical Engineering Journal:
 
 **<ins>Pico, P.</ins>**, Nathanael, K., Lavino, A.D., Kovalchuk, N.M., Simmons, M.J.H. and Matar, O.K. (2023). "*Silver nanoparticles synthesis in microfluidic and well-mixed reactors: A combined experimental and PBM-CFD study*". Chem. Eng. J., 474, p.145692. **[DOI: 10.1016/j.cej.2023.145692](https://www.sciencedirect.com/science/article/pii/S1385894723044236)**
 
-Our framework is based on an extension of the traditional Finke-Watzky model, which predicts the temporal evolution of reagents consumption and PSD in well-mixed reactors where the spatial component is not taken into account.
+If you'd like to learn more about AgNPs in general, please have a look at our review paper:
 
+Nathanael, K., **<ins>Pico, P.</ins>**, Kovalchuk, N.M., Lavino, A.D., Simmons, M.J.H. and Matar, O.K. (2022). "*Computational modelling and microfluidics as emerging approaches to synthesis of silver nanoparticles – A review*". Chem. Eng. J., 436, p.135178. **[DOI: 10.1016/j.cej.2022.135178](https://www.sciencedirect.com/science/article/pii/S1385894722006830)**
 
 ## Table of Contents
+- [Background](#background)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [Contact](#contact)
+
+## Background
+
+Our framework is based on an extension of the traditional Finke-Watzky model, which predicts the temporal evolution of reagents consumption and PSD in batch reactors. This model was originally designed for well-mixed systems in which effects related to transport phenomena in a reactor (i.e., reactants mixing) are not taken into account. 
 
 ## Installation
 
