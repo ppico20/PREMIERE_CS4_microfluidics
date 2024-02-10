@@ -1,7 +1,7 @@
 # AgNPs_PSD: Predicting the Particle Size Distribution of AgNPs using PBM-CFD Simulations
 
 ## Overview
-This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. The solvers and libraries are based on **[OpenQBMM](https://github.com/OpenQBMM/OpenQBMM)**, an OpenFoam-based implementation of the **[Quadrature Method of Moments](https://www.sciencedirect.com/science/article/pii/S0009250917306590?via%3Dihub)**. More information can be found in our publication in Chemical Engineering Journal:
+This project focuses on providing a numerical framework based on coupled PBM-CFD simulations to predict the spatio-temporal evolution of the particle size distribution (PSD) of silver nanoparticles (AgNPs) in both microchannels and well-mixed batch reactors. The solvers and libraries are based on **[OpenQBMM](https://github.com/OpenQBMM/OpenQBMM)**, an OpenFoam-based implementation of the **[Quadrature Method of Moments](https://www.sciencedirect.com/science/article/pii/S0009250917306590?via%3Dihub)** (QMOM). More information can be found in our publication in Chemical Engineering Journal:
 
 **<ins>Pico, P.</ins>**, Nathanael, K., Lavino, A.D., Kovalchuk, N.M., Simmons, M.J.H. and Matar, O.K. (2023). "*Silver nanoparticles synthesis in microfluidic and well-mixed reactors: A combined experimental and PBM-CFD study*". Chem. Eng. J., 474, p.145692. **[DOI: 10.1016/j.cej.2023.145692](https://www.sciencedirect.com/science/article/pii/S1385894723044236)**
 
@@ -64,13 +64,17 @@ where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (
 
 This is a growth model extended from the F-W mechanism. It calculates the size-dependent growth rate using the following expression: 
 
-$G = \frac{1}{3}k_{2}LC_{Ag_{(l)}}),$
+$G = \frac{1}{3}k_{2}LC_{Ag_{(l)}},$
 
 where $k_{2}$ is the growth kinetic constant, also declared by the user in ```constant/populationBalanceProperties```.
 
 ### Diffusion model (stokesEinstein):
 
-In solid-liquid systems, 
+In solid-liquid laminar systems, particle diffusion coefficients can be approximated using the Stokes-Einstein expression
+
+$D = \frac{k_{B}T}{3\pi\mu L},$
+
+where $k_{B}$, $T$, and $\mu$ correspond to Boltzmann constant, temperature, and viscosity of the continuous phase, respectively. The dependence of this expression on the internal coordinate (particle size, $L$) difficults the closure of QMOM.
 
 ## Installation
 
