@@ -50,7 +50,7 @@ This is another testing solver in which all equations are solved in a 'one-cell'
 
 ## Available libraries:
 
-One library, named 'libcompressible', was written to include custom models for nucleation, growth, and a special treatment for particle diffusion in the population balance equation, which we explain below:
+One library, named '*libcompressible*', was written to include custom models for nucleation, growth, and a special treatment for particle diffusion in the population balance equation, which we explain below:
 
 ### Nucleation model ([nucleation_reaction](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/libcompressible/nucleationModels/nucleation_reaction)):
 
@@ -70,11 +70,11 @@ where $k_{2}$ is the growth kinetic constant, also declared by the user in ```co
 
 ### Diffusion model (stokesEinstein):
 
-In solid-liquid laminar systems, particle diffusion coefficients can be approximated using the Stokes-Einstein expression
+In solid-liquid laminar and highly diluted systems, particle diffusion coefficients can be approximated using the Stokes-Einstein expression
 
 $D = \frac{k_{B}T}{3\pi\mu L},$
 
-where $k_{B}$, $T$, and $\mu$ correspond to Boltzmann constant, temperature, and viscosity of the continuous phase, respectively. The dependence of this expression on the internal coordinate (particle size, $L$) difficults the closure of QMOM.
+where $k_{B}$, $T$, and $\mu$ correspond to Boltzmann constant, temperature, and viscosity of the continuous phase, respectively. The dependence of this expression on the internal coordinate (particle size, $L$) difficults the closure of QMOM. Details on the way in which circumvent this problem in our formulation can be found in the paper. In terms of the code, our implementarion requires a modification to OpenQBMM's cource code for the **[univariate population balance model]**(https://github.com/OpenQBMM/OpenQBMM/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance). We have named this new implementation '*libpopulationBalance_SE*', which can be found [here](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance_SE). Besides importing this new library in ```system/controlDict```, 
 
 ## Installation
 
