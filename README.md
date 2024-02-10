@@ -38,6 +38,8 @@ The following figure shows a schematic of the proposed coupling between PBM and 
 
 This is the package's primary solver. Besides solving the continuity and momentum conservation equations, it incorporates five additional reactive convection-diffusion equations for each of the main species present in our system ($SN$: silver precursor, $R$: reducing agent, $Ag_{(l)}$: silver atoms in liquid, $Ag_{s}$: silver nuclei, $Ag_{s2}$: silver nuclei which have grown into AgNPs). It also solves the population balance equation via the quadrature method of moments. In our formulation, we use a univariate number density function with particle size, L, as the internal coordinate. Therefore, we obtain the fiels of the first $k$ moments of the PSD in a specific domain; we can then approximate the PSD with its moments.
 
+The kinetic, transport, and molecular properties of each species and reactions (mass diffisivities, stoichiometric coefficients, kinetic constants, and molecular weights) need to be provided by the user via a new dictionary, ```constant/reactionProperties```.
+
 ### [newReacting_buoyantSimpleFoam:](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/applications/solvers/newReacting_buoyantSimpleFoam)
 
 This is a testing solver to exclusively solve for velocity, pressure, and species concentration, without activating the PBM. Since applications related to nanoparticles synthesis involve highly diluted systems, the motion of the particles will not have a major influence on the continuous phase. A such, removing the PBM portion will not have an influence on the velocity field.
@@ -56,7 +58,7 @@ This is a nucleation model extended from the F-W mechanism. It calculates the nu
 
 $J = N_{av}\left(\frac{d_{m}}{d_{crit}}\right)k_{1}C_{Ag_{(l)}},$
 
-where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary ```constant/populationBalanceProperties```. $C_{Ag_{(l)}} = \rho y_{Ag_{(l)}} / MW_{Ag_{(l)}}$ is the molar concentration of $Ag_{(l)}$, directly dependent on its mass fraction in solution, $y_{Ag_{(l)}}$, obtained from solving the aforementioned convection-diffusion equations. $\rho$ corresponds to the density of the continuous phase, and $MW_{Ag_{(l)}}$ the molecular weight of $Ag_{(l)}$, defined by the user in ```constant/reactionProperties```.
+where $N_{av}$ (Avogrado constant), $d_{m}$ (size of element atom), $d_{crit}$ (critical nucleus size), and $k_{1}$ (nucleation kinetic constant) are constants of the model that depend on the nature of the synthesised NPs. These constants are declared in the OpenQBMM dictionary ```constant/populationBalanceProperties```. $C_{Ag_{(l)}} = \rho y_{Ag_{(l)}} / MW_{Ag_{(l)}}$ is the molar concentration of $Ag_{(l)}$, directly dependent on its mass fraction in solution, $y_{Ag_{(l)}}$, obtained from solving the aforementioned convection-diffusion equations. $\rho$ corresponds to the density of the continuous phase, and $MW_{Ag_{(l)}}$ to the molecular weight of $Ag_{(l)}$, defined by the user in ```constant/reactionProperties```.
 
 ### Growth model ([growth_reaction](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/libcompressible/growthModels/growth_reaction)):
 
