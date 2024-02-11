@@ -13,8 +13,6 @@ Nathanael, K., **<ins>Pico, P.</ins>**, Kovalchuk, N.M., Lavino, A.D., Simmons, 
 - [Background](#background)
 - [Available solvers](#available-solvers)
 - [Available libraries](#available-libraries)
-- [Installation](#installation)
-- [Usage](#usage)
 - [Credits](#credits)
 - [Contact](#contact)
 
@@ -74,13 +72,7 @@ In solid-liquid laminar and highly diluted systems, particle diffusion coefficie
 
 $D = \frac{k_{B}T}{3\pi\mu L},$
 
-where $k_{B}$, $T$, and $\mu$ correspond to Boltzmann constant, temperature, and viscosity of the continuous phase, respectively. The dependence of this expression on the internal coordinate (particle size, $L$) difficults the closure of QMOM. Details on the way in which circumvent this problem in our formulation can be found in the paper. In terms of the code, our implementarion requires a modification to OpenQBMM's cource code for the **[univariate population balance model](https://github.com/OpenQBMM/OpenQBMM/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance)**. We have named this new implementation '*libpopulationBalance_SE*', which can be found [here](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance_SE). Besides importing this new library in ```system/controlDict```, the new univariate population balance model needs to be declared in ```constant/populationBalanceProperties```.
-
-## Installation
-
-
-## Usage
-
+where $k_{B}$, $T$, and $\mu$ correspond to Boltzmann constant, temperature, and viscosity of the continuous phase, respectively. The dependence of this expression on the internal coordinate (particle size, $L$) difficults the closure of QMOM. Details on the way in which circumvent this problem in our formulation can be found in the paper. In terms of the code, our implementarion requires a modification to OpenQBMM's cource code for the **[univariate population balance model](https://github.com/OpenQBMM/OpenQBMM/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance)**. We have named this new implementation '*libpopulationBalance_SE*', which can be found [here](https://github.com/ppico20/PREMIERE_CS4_microfluidics/tree/master/src/quadratureMethods/populationBalanceModels/univariatePopulationBalance_SE). Besides importing this new library in ```system/controlDict```, the new univariate population balance model needs to be declared in ```constant/populationBalanceProperties``` and the diffusion model needs to be turned off; by importing the new population balance model, the code automatically includes the Stokes-Einstein model in the calculations.
 
 ## Credits
 
