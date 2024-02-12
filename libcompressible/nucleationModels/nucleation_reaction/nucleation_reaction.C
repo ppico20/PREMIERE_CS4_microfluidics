@@ -9,6 +9,7 @@
     Contributed 2018-07-31 to the OpenFOAM Foundation
     Copyright (C) 2018 OpenFOAM Foundation
     Copyright (C) 2019-2020 Alberto Passalacqua
+    Modification made by: Paula Pico (Imperial College London)
 -------------------------------------------------------------------------------
 License
     This file is derivative work of OpenFOAM.
