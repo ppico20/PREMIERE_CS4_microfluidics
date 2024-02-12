@@ -1,3 +1,0 @@
-reacting_icoFoam.C
-
-EXE = $(FOAM_APPBIN)/reacting_icoFoam

@@ -1,3 +1,0 @@
-reacting_buoyantPimpleFoam.C
-
-EXE = $(FOAM_USER_APPBIN)/reacting_buoyantPimpleFoam

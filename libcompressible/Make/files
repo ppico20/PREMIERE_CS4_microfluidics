@@ -1,6 +1,5 @@
 nucleationModels/nucleation_reaction/nucleation_reaction.C
 growthModels/growth_reaction/growth_reaction.C
 growthModels/diffusion_driven/diffusion_driven.C
-diffusionModel/StokesEinstein/StokesEinstein.C
 
 LIB = $(FOAM_USER_LIBBIN)/libcompressible

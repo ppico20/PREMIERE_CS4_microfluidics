@@ -17,21 +17,19 @@ EXE_INC = \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/populationBalanceModels/lnInclude \
-    -I$(OPENQBMM_DIR)/src/eigenSolver/lnInclude \
-    -I$(OPENQBMM_DIR)/src/mappedList \
-    -I$(OPENQBMM_DIR)/src/mappedPtrList \
-    -I$(OPENQBMM_DIR)/src/Vandermonde \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/momentSets/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/quadratureNode/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/moments \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/momentInversion/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/fieldMomentInversion/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/quadratureApproximations/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/momentAdvection/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/PDFTransportModels/lnInclude \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/mixingModels/lnInclude  \
-    -I$(OPENQBMM_DIR)/src/quadratureMethods/realizableOdeSolver
+    -I../../mappedList \
+    -I../../mappedPtrList \
+    -I../../Vandermonde \
+    -I../momentSets/lnInclude \
+    -I../quadratureNode/lnInclude \
+    -I../moments \
+    -I../momentInversion/lnInclude \
+    -I../fieldMomentInversion/lnInclude \
+    -I../quadratureApproximations/lnInclude \
+    -I../momentAdvection/lnInclude \
+    -I../PDFTransportModels/lnInclude \
+    -I../mixingModels/lnInclude  \
+    -I../realizableOdeSolver
 
 LIB_LIBS = \
     -lincompressibleTransportModels \
@@ -44,8 +42,6 @@ LIB_LIBS = \
     -lfiniteVolume \
     -lmeshTools \
     -L$(FOAM_MODULE_LIBBIN) \
-    -lpopulationBalance \
-    -leigenSolver \
     -lquadratureNode \
     -lmomentSets \
     -lmomentInversion \

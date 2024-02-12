@@ -1,0 +1,4 @@
+univariatePopulationBalance_SE/univariatePopulationBalance_SE.C
+
+LIB = $(FOAM_MODULE_LIBBIN)/libpopulationBalance_SE
+
