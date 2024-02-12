@@ -6,6 +6,7 @@
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
     Copyright (C) 2019 Alberto Passalacqua
+    Modified by: Paula Pico (Imperial College London)
 -------------------------------------------------------------------------------
 License
     This file is derivative work of OpenFOAM.
